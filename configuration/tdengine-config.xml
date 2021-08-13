@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!-- xml文件内的大部分属性会在ambari web UI上的configs标签页展示，内容可编辑修改 -->
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!-- supports_adding_forbidden设置为true，取消自定义配置 -->
+<configuration supports_adding_forbidden="true">
+
+    <property>
+        <name>firstEp</name>
+        <displayName>firstEp</displayName>
+        <value/>
+        <description>first FQDN for TDengine system</description>
+        <value-attributes>
+            <overridable>false</overridable>
+            <editable-only-at-install>true</editable-only-at-install>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>serverPort</name>
+        <displayName>serverPort</displayName>
+        <value>6030</value>
+        <description>TDengine服务端口</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>numOfMnodes</name>
+        <displayName>numOfMnodes</displayName>
+        <value>3</value>
+        <description>number of management nodes in the system</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>replica</name>
+        <displayName>replica</displayName>
+        <value>1</value>
+        <description>number of replications, for cluster only</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>ratioOfQueryCores</name>
+        <displayName>ratioOfQueryCores</displayName>
+        <value>1.0</value>
+        <description>the proportion of total CPU cores available for query processing</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>cache</name>
+        <displayName>cache</displayName>
+        <value>16</value>
+        <description>cache block size (Mbyte)</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>blocks</name>
+        <displayName>blocks</displayName>
+        <value>6</value>
+        <description>number of cache blocks per vnode</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>days</name>
+        <displayName>days</displayName>
+        <value>10</value>
+        <description>number of days per DB file</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>keep</name>
+        <displayName>keep</displayName>
+        <value>3650</value>
+        <description>number of days to keep DB file</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <!--<property>
+        <name>delData</name>
+        <displayName>数据删除</displayName>
+        <value>false</value>
+        <description>慎重！数据可删除时可使用该项，删除旧集群信息，但数据也会被删除</description>
+        <value-attributes>
+            <overridable>false</overridable>
+            <type>boolean</type>
+        </value-attributes>
+    </property>-->
+
+</configuration>

@@ -1,0 +1,53 @@
+{
+  "TDENGINE_SERVICE": {
+    "Component": [
+      {
+        "type": "ganglia",
+        "metrics": {
+          "default": {
+            "metrics/req/select": {
+              "metric": "req_select",
+              "pointInTime": false,
+              "temporal": true
+            },
+            "metrics/req/insert": {
+              "metric": "req_insert",
+              "pointInTime": false,
+              "temporal": true
+            },
+            "metrics/taosd/memory": {
+              "metric": "taosd_memory",
+              "pointInTime": false,
+              "temporal": true
+            },
+            "metrics/system/memory": {
+              "metric": "system_memory",
+              "pointInTime": false,
+              "temporal": true
+            },
+            "metrics/band/speed": {
+              "metric": "band_speed",
+              "pointInTime": false,
+              "temporal": true
+            },
+            "metrics/cpu/system": {
+              "metric": "cpu_system",
+              "pointInTime": false,
+              "temporal": true
+            },
+            "metrics/cpu/taosd": {
+              "metric": "cpu_taosd",
+              "pointInTime": false,
+              "temporal": true
+            },
+            "metrics/disk/used": {
+              "metric": "disk_used",
+              "pointInTime": false,
+              "temporal": true
+            }
+          }
+        }
+      }
+    ]
+  }
+}

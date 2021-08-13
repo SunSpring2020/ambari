@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_adding_forbidden="true">
+
+    <!-- 创建用户，不会显示在ambari web页面 -->
+    <property>
+        <name>td_user</name>
+        <display-name>TDengine user</display-name>
+        <value>td</value>
+        <description>创建TDengine用户</description>
+        <!-- 属性类型，USER表明本属性是创建用户 -->
+        <property-type>USER</property-type>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+            <!-- 指定用户组 -->
+            <user-groups>
+                <property>
+                    <type>cluster-env</type>
+                    <name>user_group</name>
+                </property>
+                <property>
+                    <!-- 用户组配置文件 -->
+                    <type>tdengine-env</type>
+                    <!-- 用户组名称 -->
+                    <name>td_group</name>
+                </property>
+            </user-groups>
+        </value-attributes>
+    </property>
+
+    <!-- 创建用户组，不会显示在ambari web页面 -->
+    <property>
+        <name>td_group</name>
+        <display-name>td User Group</display-name>
+        <value>td_group</value>
+        <description>创建TDengine用户组</description>
+        <!-- 属性类型，GROUP表明本属性是创建用户组 -->
+        <property-type>GROUP</property-type>
+    </property>
+
+    <!-- TDengine安装目录 -->
+    <property>
+        <name>tdengine_dir</name>
+        <display-name>TDengine install directory</display-name>
+        <value>/usr/local/taos</value>
+        <description>TDengine安装目录</description>
+        <final>true</final>
+        <value-attributes>
+            <type>directories</type>
+            <overridable>false</overridable>
+            <read_only>true</read_only>
+        </value-attributes>
+    </property>
+
+    <!-- TDengine配置目录 -->
+    <property>
+        <name>tdengine_config_file</name>
+        <display-name>TDengine config file</display-name>
+        <value>/etc/taos/taos.cfg</value>
+        <description>TDengine配置文件</description>
+        <final>true</final>
+        <value-attributes>
+            <type>directories</type>
+            <overridable>false</overridable>
+            <read_only>true</read_only>
+        </value-attributes>
+    </property>
+
+    <!-- TDengine数据目录 -->
+    <property>
+        <name>tdengine_data_dir</name>
+        <display-name>TDengine data directory</display-name>
+        <value>/var/data/taos</value>
+        <description>TDengine数据目录</description>
+        <value-attributes>
+            <type>directories</type>
+            <editable-only-at-install>true</editable-only-at-install>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <!-- TDengine日志目录 -->
+    <property>
+        <name>tdengine_log_dir</name>
+        <display-name>TDengine log directory</display-name>
+        <value>/var/log/taos</value>
+        <description>TDengine日志目录</description>
+        <value-attributes>
+            <type>directories</type>
+            <editable-only-at-install>true</editable-only-at-install>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <!-- TDengine缓存目录 -->
+    <property>
+        <name>tdengine_temp_dir</name>
+        <display-name>TDengine temp directory</display-name>
+        <value>/var/tmp/taos</value>
+        <description>TDengine缓存目录</description>
+        <value-attributes>
+            <type>directories</type>
+            <editable-only-at-install>true</editable-only-at-install>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <!-- TDengine的pid目录 -->
+    <property>
+        <name>tdengine_pid_dir</name>
+        <display-name>TDengine pid directory</display-name>
+        <value>/var/run/taos</value>
+        <description>TDengine pid目录</description>
+        <value-attributes>
+            <type>directories</type>
+            <editable-only-at-install>true</editable-only-at-install>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+</configuration>

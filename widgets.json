@@ -1,0 +1,161 @@
+{
+  "layouts": [
+    {
+      "layout_name": "default_tdengine_dashboard",
+      "display_name": "Standard Tdengine Dashboard",
+      "section_name": "TDENGINE_SUMMARY",
+      "widgetLayoutInfo": [
+        {
+          "widget_name": "req select",
+          "description": "total select request per minute last hour",
+          "widget_type": "GRAPH",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "req_select",
+              "metric_path": "metrics/req/select",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "req select",
+              "value": "${req_select}"
+            }
+          ]
+        },
+        {
+          "widget_name": "req insert",
+          "description": "total insert request per minute for last hour",
+          "widget_type": "GRAPH",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "req_insert",
+              "metric_path": "metrics/req/insert",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "req insert",
+              "value": "${req_insert}"
+            }
+          ]
+        },
+        {
+          "widget_name": "taosd memory",
+          "description": "taosd max memory last 10 minutes",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "taosd_memory",
+              "metric_path": "metrics/taosd/memory",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "taosd memory",
+              "value": "${taosd_memory}"
+            }
+          ]
+        },
+        {
+          "widget_name": "system memory",
+          "description": "max System Memory last 1 hour",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "system_memory",
+              "metric_path": "metrics/system/memory",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "system memory",
+              "value": "${system_memory}"
+            }
+          ]
+        },
+        {
+          "widget_name": "band speed",
+          "description": "avg band speed last one minute",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "band_speed",
+              "metric_path": "metrics/band/speed",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "band speed",
+              "value": "${band_speed}"
+            }
+          ]
+        },
+        {
+          "widget_name": "cpu system",
+          "description": "monitor system cpu",
+          "widget_type": "GRAPH",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "cpu_system",
+              "metric_path": "metrics/cpu/system",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            },
+            {
+              "name": "cpu_taosd",
+              "metric_path": "metrics/cpu/taosd",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "cpu system",
+              "value": "${cpu_system}"
+            },
+            {
+              "name": "cpu taosd",
+              "value": "${cpu_taosd}"
+            }
+          ]
+        },
+        {
+          "widget_name": "avg disk used",
+          "description": "avg_disk_used",
+          "widget_type": "GRAPH",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "disk_used",
+              "metric_path": "metrics/disk/used",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "disk used",
+              "value": "${disk_used}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
