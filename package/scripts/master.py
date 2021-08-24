@@ -111,6 +111,10 @@ class Master(Script):
         File(format("{tdengine_config_file}"),
              content=Template("taos.cfg.j2", configurations=configurations))
 
+        # 修改各个文件夹的权限
+        Execute(
+            format("chown -R {td_user}:{td_group} {tdengine_dir} {tdengine_config_dir} {dataDir} {logDir} {tempDir}"))
+
         Logger.info("配置结束")
 
     def start(self, env):
