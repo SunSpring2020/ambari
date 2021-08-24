@@ -13,7 +13,8 @@ td_group = config['configurations']['tdengine-env']['td_group']
 tdengine_dir = config['configurations']['tdengine-env']['tdengine_dir']
 
 # 获取tdengine-env.xml的TDengine的配置文件路径
-tdengine_config_file = config['configurations']['tdengine-env']['tdengine_config_file']
+tdengine_config_dir = config['configurations']['tdengine-env']['tdengine_config_dir']
+tdengine_config_file = format("{tdengine_config_dir}/taos.cfg")
 
 # 获取tdengine-env.xml的TDengine数据文件夹
 dataDir = config['configurations']['tdengine-env']['tdengine_data_dir']

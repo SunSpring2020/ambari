@@ -49,21 +49,21 @@
         <value-attributes>
             <type>directories</type>
             <overridable>false</overridable>
-            <read_only>true</read_only>
+            <editable-only-at-install>true</editable-only-at-install>
         </value-attributes>
     </property>
 
     <!-- TDengine配置目录 -->
     <property>
-        <name>tdengine_config_file</name>
-        <display-name>TDengine config file</display-name>
-        <value>/etc/taos/taos.cfg</value>
-        <description>TDengine配置文件</description>
+        <name>tdengine_config_dir</name>
+        <display-name>TDengine config directory</display-name>
+        <value>/etc/taos</value>
+        <description>TDengine配置文件目录</description>
         <final>true</final>
         <value-attributes>
             <type>directories</type>
             <overridable>false</overridable>
-            <read_only>true</read_only>
+            <editable-only-at-install>true</editable-only-at-install>
         </value-attributes>
     </property>
 

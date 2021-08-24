@@ -60,6 +60,14 @@ class Master(Script):
         # 删除安装包文件
         Execute("rm -rf tdengine.tar.gz")
 
+        # 修改安装目录
+        tdengine_dir_tmp = params.tdengine_dir.replace("/", "\/")
+        Execute(format("sed -i 's/\/usr\/local\/taos/{tdengine_dir_tmp}/g' /opt/tdengine/install.sh"))
+
+        # 修改配置文件目录
+        tdengine_config_dir_tmp = params.tdengine_config_dir.replace("/", "\/")
+        Execute(format("sed -i 's/\/etc\/taos/{tdengine_config_dir_tmp}/g' /opt/tdengine/install.sh"))
+
         # 必须先打开该文件夹，否则执行install.sh会报：File taos.tar.gz does not exist
         Execute("cd /opt/tdengine && ./install.sh -e no")
 
