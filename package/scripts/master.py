@@ -79,6 +79,7 @@ class Master(Script):
         File(format("{tdengine_config_file}"),
              content=Template("taos.cfg.j2", configurations=configurations))
 
+        # 启动集群，进行集群搭建
         try:
             Execute('systemctl start taosd')
         except:
@@ -86,11 +87,17 @@ class Master(Script):
 
         fqdn = params.fqdn.encode('utf8').strip()
 
+        # 集群搭建
         if (firstEqTmp == fqdn) | (firstEqTmp is fqdn):
+            # 将非firstEq的节点加入到集群
             for x in params.tdHosts:
                 temp = str(x).encode('utf8').strip()
                 if (firstEqTmp != temp) & (firstEqTmp is not temp):
                     Execute("taos -s \"create dnode \"" + temp + "\"\"")
+            # 创建metrics查询用户
+            Execute(format("taos -s \"CREATE USER {ambari_metrics_user} PASS \'{ambari_metrics_password}\'\""))
+            # 给metrics查询用户赋权，只给予读权限
+            Execute(format("taos -s \"ALTER USER {ambari_metrics_user} PRIVILEGE read\""))
 
         Logger.info("安装完成!")
 
@@ -139,22 +146,19 @@ class Master(Script):
         # 构建参数，执行metrics循环发送数据
         params_data = {
             "tdengine": {
-                "port": params.serverPort,
                 "pid_file": params.tdengine_pid_file,
                 "log_dir": params.logDir
             },
             "metrics_collector": {
-                "ip": "ambari01",
-                "port": "123"
+                "ip": params.metrics_collector_host,
+                "port": params.metrics_collector_port
             }
         }
 
         current_dir = os.path.dirname(os.path.abspath(__file__))
 
-        cmd = "nohup /usr/bin/python -u {0}/metrics.py '{1}' > /dev/null 2>&1 &".format(current_dir,
-                                                                                        json.dumps(params_data))
-
-        Execute(cmd)
+        Execute("nohup /usr/bin/python -u {0}/metrics.py '{1}' > /dev/null 2>&1 &".format(current_dir,
+                                                                                          json.dumps(params_data)))
 
         Logger.info("启动结束")
 

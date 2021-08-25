@@ -37,6 +37,9 @@ firstEp = config['configurations']['tdengine-config']['firstEp']
 # 获取本机主机名称
 fqdn = config['agentLevelParams']['hostname']
 
+# RESTful连接器端口
+httpPort = 6041
+
 # 获取服务端口地址
 serverPort = config['configurations']['tdengine-config']['serverPort']
 
@@ -66,6 +69,18 @@ hosts = config['clusterHostInfo']['all_hosts']
 
 # 获取TDengine集群列表
 tdHosts = config['clusterHostInfo']['tdengine_service_hosts']
+
+# metrics查询用户
+ambari_metrics_user = "metrics_search"
+
+# metrics查询用户密码
+ambari_metrics_password = "metrics"
+
+# metric服务地址
+metrics_collector_host = default("/clusterHostInfo/metrics_collector_hosts", ['localhost'])[0]
+
+# metric服务端口
+metrics_collector_port = config['configurations']['ams-site']['timeline.metrics.service.webapp.address'].split(":")[1]
 
 baseUrl = config['repositoryFile']['repositories'][0]['baseUrl']
 
