@@ -33,6 +33,28 @@
                         <timeout>1800</timeout>
                     </commandScript>
                 </component>
+                <component>
+                    <name>TDENGINE_CLIENT</name>
+                    <displayName>TDENGINE Client</displayName>
+                    <category>CLIENT</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/tdengine_client.py</script>
+                        <scriptType>PYTHON</scriptType>
+                    </commandScript>
+                    <configFiles>
+                        <configFile>
+                            <type>xml</type>
+                            <fileName>tdengine-config.xml</fileName>
+                            <dictionaryName>tdengine-config</dictionaryName>
+                        </configFile>
+                        <configFile>
+                            <type>env</type>
+                            <fileName>taos.cfg</fileName>
+                            <dictionaryName>tdengine-config</dictionaryName>
+                        </configFile>
+                    </configFiles>
+                </component>
             </components>
             <!-- 操作系统 -->
             <osSpecifics>

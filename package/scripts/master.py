@@ -12,20 +12,9 @@ class Master(Script):
 
         Logger.info("安装开始")
 
-        # 配置以及安装前的必要检查
-        # 1、判断Tdengine的安装数量是否为奇数个
+        # 配置以及安装前的必要检查:判断Tdengine的安装数量是否为奇数个
         if len(params.tdHosts) % 2 == 0:
             raise Exception("Tdengine的集群数量不能是偶数个")
-        # 2、判断配置中的firstEq是否在Tdengine的安装列表中
-        boo = 0
-        firstEqTmp = params.firstEp.encode('utf8').strip()
-        for x in params.tdHosts:
-            temp = str(x)
-            if (temp == firstEqTmp) | (temp is firstEqTmp):
-                boo = 1
-
-        if boo == 0:
-            raise Exception("firstEq不在Tdengine安装集群")
 
         # 删除旧程序
         Execute("rmtaos", ignore_failures=True)
@@ -87,6 +76,8 @@ class Master(Script):
 
         fqdn = params.fqdn.encode('utf8').strip()
 
+        firstEqTmp = params.firstEp.encode('utf8').strip()
+
         # 集群搭建
         if (firstEqTmp == fqdn) | (firstEqTmp is fqdn):
             # 将非firstEq的节点加入到集群
@@ -147,7 +138,11 @@ class Master(Script):
         params_data = {
             "tdengine": {
                 "pid_file": params.tdengine_pid_file,
-                "log_dir": params.logDir
+                "log_dir": params.logDir,
+                "user": params.ambari_metrics_user,
+                "password": params.ambari_metrics_password,
+                "fqdn": params.fqdn,
+                "httpPort": params.httpPort
             },
             "metrics_collector": {
                 "ip": params.metrics_collector_host,

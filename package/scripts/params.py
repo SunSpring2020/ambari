@@ -31,9 +31,6 @@ tdengine_pid_dir = config['configurations']['tdengine-env']['tdengine_pid_dir']
 # 获取tdengine-env.xml的TDengine pid文件
 tdengine_pid_file = format("{tdengine_pid_dir}/tdengine.pid")
 
-# 获取首节点的FQDN
-firstEp = config['configurations']['tdengine-config']['firstEp']
-
 # 获取本机主机名称
 fqdn = config['agentLevelParams']['hostname']
 
@@ -70,6 +67,9 @@ hosts = config['clusterHostInfo']['all_hosts']
 # 获取TDengine集群列表
 tdHosts = config['clusterHostInfo']['tdengine_service_hosts']
 
+# 获取首节点的FQDN
+firstEp = tdHosts[0]
+
 # metrics查询用户
 ambari_metrics_user = "metrics_search"
 
@@ -82,6 +82,6 @@ metrics_collector_host = default("/clusterHostInfo/metrics_collector_hosts", ['l
 # metric服务端口
 metrics_collector_port = config['configurations']['ams-site']['timeline.metrics.service.webapp.address'].split(":")[1]
 
-baseUrl = config['repositoryFile']['repositories'][0]['baseUrl']
-
-tdengine_download = format("{baseUrl}/tdengine/TDengine-server-2.0.20.10-Linux-x64.tar.gz")
+if config.get('repositoryFile'):
+    baseUrl = config['repositoryFile']['repositories'][0]['baseUrl']
+    tdengine_download = format("{baseUrl}/tdengine/TDengine-server-2.0.20.10-Linux-x64.tar.gz")
