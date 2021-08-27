@@ -89,8 +89,6 @@ def get_metrics_data():
     taosd_memory_sql = "select max(mem_taosd) from log.dn where ts >= now -10m and ts < now"
     # 系统内存，数字
     system_memory_sql = "select max(mem_system) from log.dn where ts >= now -10m and ts < now"
-    # 网速，数字
-    band_speed_sql = "select avg(band_speed)  from log.dn where ts >= now-10m and ts < now interval(1m)"
     # 系统CPU，列表
     cpu_system_sql = "select avg(cpu_system) from log.dn where ts >= now-10m and ts < now  interval(1s)"
     # taosd占用CPU，列表
@@ -99,27 +97,23 @@ def get_metrics_data():
     disk_used_sql = "select avg(disk_used) disk_used from log.dn where ts >= now-10m and ts < now interval(1s)"
     try:
         # 查询次数，列表
-        response_req_select = json.loads(requests.post(restful, data=req_select_sql, headers=header).content)
+        # response_req_select = json.loads(requests.post(restful, data=req_select_sql, headers=header).content)
         # 写入次数，列表
-        response_req_insert = json.loads(requests.post(restful, data=req_insert_sql, headers=header).content)
+        # response_req_insert = json.loads(requests.post(restful, data=req_insert_sql, headers=header).content)
         # taosd服务内存，数字
         response_taosd_memory = json.loads(requests.post(restful, data=taosd_memory_sql, headers=header).content)
         taosd_memory = response_taosd_memory['data'][0][0]
-        send_metric_to_collector("taosd_memory", taosd_memory)
+        send_metric_to_collector("taosd.memory", taosd_memory)
         # 系统内存，数字
         response_system_memory = json.loads(requests.post(restful, data=system_memory_sql, headers=header).content)
         system_memory = response_system_memory['data'][0][0]
-        send_metric_to_collector("system_memory", system_memory)
-        # 网速，数字
-        response_band_speed = json.loads(requests.post(restful, data=band_speed_sql, headers=header).content)
-        band_speed = response_band_speed['data'][0][0]
-        send_metric_to_collector("band_speed", band_speed)
+        send_metric_to_collector("system.memory", system_memory)
         # 系统CPU，列表
-        response_cpu_system = json.loads(requests.post(restful, data=cpu_system_sql, headers=header).content)
+        # response_cpu_system = json.loads(requests.post(restful, data=cpu_system_sql, headers=header).content)
         # taosd占用CPU，列表
-        response_cpu_taosd = json.loads(requests.post(restful, data=cpu_taosd_sql, headers=header).content)
+        # response_cpu_taosd = json.loads(requests.post(restful, data=cpu_taosd_sql, headers=header).content)
         # 硬盘使用，列表
-        response_disk_used = json.loads(requests.post(restful, data=disk_used_sql, headers=header).content)
+        # response_disk_used = json.loads(requests.post(restful, data=disk_used_sql, headers=header).content)
     except Exception as e:
         logging.error(e)
 
@@ -157,7 +151,7 @@ def send_metric_to_collector(metric_name, metric_data):
 
 # 检测进程并发送metrics数据
 def check_and_send():
-    # 当es进程不存在时，循环终止
+    # 当tdengine进程不存在时，循环终止
     while check_process(td_pid_file):
         try:
             get_metrics_data()

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json, os
+import time
 
 from resource_management import *
 
@@ -90,6 +91,29 @@ class Master(Script):
             # 给metrics查询用户赋权，只给予读权限
             Execute(format("taos -s \"ALTER USER {ambari_metrics_user} PRIVILEGE read\""))
 
+        # 下载安装pip需要的安装包（已在本地源内部配置）
+        Execute(format("wget {baseUrl}/python/setuptools-44.1.1.zip"))
+        Execute(format("wget {baseUrl}/python/pip-20.3.4.tar.gz"))
+        Execute(format("wget {baseUrl}/python/wheel-0.37.0.tar.gz"))
+        # 解压安装包
+        Execute("unzip -o -q setuptools-44.1.1.zip")
+        Execute("tar -zxvf pip-20.3.4.tar.gz")
+        Execute("tar -zxvf wheel-0.37.0.tar.gz")
+        # 删除安装包
+        Execute("rm -rf setuptools-44.1.1.zip")
+        Execute("rm -rf pip-20.3.4.tar.gz")
+        Execute("rm -rf wheel-0.37.0.tar.gz")
+        # pip安装
+        Execute("cd setuptools-44.1.1 && python setup.py install")
+        Execute("cd wheel-0.37.0 && python setup.py install")
+        Execute("cd pip-20.3.4 && python setup.py install")
+        # 删除安装文件夹
+        Execute("rm -rf setuptools-44.1.1")
+        Execute("rm -rf wheel-0.37.0")
+        Execute("rm -rf pip-20.3.4")
+
+        Execute("pip install requests")
+
         Logger.info("安装完成!")
 
     def configure(self, env):
@@ -123,6 +147,8 @@ class Master(Script):
 
         # 启动前的配置
         self.configure(env)
+
+        time.sleep(10)
 
         # taosd服务启动
         try:
