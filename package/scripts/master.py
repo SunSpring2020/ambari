@@ -91,28 +91,41 @@ class Master(Script):
             # 给metrics查询用户赋权，只给予读权限
             Execute(format("taos -s \"ALTER USER {ambari_metrics_user} PRIVILEGE read\""))
 
-        # 下载安装pip需要的安装包（已在本地源内部配置）
+        # 下载安装python requests模块需要的安装包（已在本地源内部配置）
         Execute(format("wget {baseUrl}/python/setuptools-44.1.1.zip"))
-        Execute(format("wget {baseUrl}/python/pip-20.3.4.tar.gz"))
-        Execute(format("wget {baseUrl}/python/wheel-0.37.0.tar.gz"))
+        Execute(format("wget {baseUrl}/python/certifi-2021.5.30.tar.gz"))
+        Execute(format("wget {baseUrl}/python/chardet-4.0.0.tar.gz"))
+        Execute(format("wget {baseUrl}/python/idna-2.10.tar.gz"))
+        Execute(format("wget {baseUrl}/python/urllib3-1.26.6.tar.gz"))
+        Execute(format("wget {baseUrl}/python/requests-2.26.0.tar.gz"))
         # 解压安装包
         Execute("unzip -o -q setuptools-44.1.1.zip")
-        Execute("tar -zxvf pip-20.3.4.tar.gz")
-        Execute("tar -zxvf wheel-0.37.0.tar.gz")
+        Execute("tar -zxvf certifi-2021.5.30.tar.gz")
+        Execute("tar -zxvf chardet-4.0.0.tar.gz")
+        Execute("tar -zxvf idna-2.10.tar.gz")
+        Execute("tar -zxvf urllib3-1.26.6.tar.gz")
+        Execute("tar -zxvf requests-2.26.0.tar.gz")
         # 删除安装包
         Execute("rm -rf setuptools-44.1.1.zip")
-        Execute("rm -rf pip-20.3.4.tar.gz")
-        Execute("rm -rf wheel-0.37.0.tar.gz")
-        # pip安装
+        Execute("rm -rf certifi-2021.5.30.tar.gz")
+        Execute("rm -rf chardet-4.0.0.tar.gz")
+        Execute("rm -rf idna-2.10.tar.gz")
+        Execute("rm -rf urllib3-1.26.6.tar.gz")
+        Execute("rm -rf requests-2.26.0.tar.gz")
+        # requests安装
         Execute("cd setuptools-44.1.1 && python setup.py install")
-        Execute("cd wheel-0.37.0 && python setup.py install")
-        Execute("cd pip-20.3.4 && python setup.py install")
+        Execute("cd certifi-2021.5.30 && python setup.py install")
+        Execute("cd chardet-4.0.0 && python setup.py install")
+        Execute("cd idna-2.10 && python setup.py install")
+        Execute("cd urllib3-1.26.6 && python setup.py install")
+        Execute("cd requests-2.26.0 && python setup.py install")
         # 删除安装文件夹
         Execute("rm -rf setuptools-44.1.1")
-        Execute("rm -rf wheel-0.37.0")
-        Execute("rm -rf pip-20.3.4")
-
-        Execute("pip install requests")
+        Execute("rm -rf certifi-2021.5.30")
+        Execute("rm -rf chardet-4.0.0")
+        Execute("rm -rf idna-2.10")
+        Execute("rm -rf urllib3-1.26.6")
+        Execute("rm -rf requests-2.26.0")
 
         Logger.info("安装完成!")
 
