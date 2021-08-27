@@ -7,12 +7,12 @@
           "default": {
             "metrics/taosd/memory": {
               "metric": "taosd.memory",
-              "pointInTime": false,
+              "pointInTime": true,
               "temporal": true
             },
             "metrics/system/memory": {
               "metric": "system.memory",
-              "pointInTime": false,
+              "pointInTime": true,
               "temporal": true
             }
           }
