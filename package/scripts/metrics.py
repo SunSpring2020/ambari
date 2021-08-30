@@ -156,6 +156,7 @@ def check_and_send():
         try:
             get_metrics_data()
         except Exception:
+            logging.error("metrics数据发送失败")
             pass
         time.sleep(10)
 
