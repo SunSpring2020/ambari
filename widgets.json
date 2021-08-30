@@ -6,8 +6,48 @@
       "section_name": "TDENGINE_SUMMARY",
       "widgetLayoutInfo": [
         {
+          "widget_name": "req select",
+          "description": "total select request for 1 minutes",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "req.select",
+              "metric_path": "metrics/req/select",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "req select",
+              "value": "${req.select}"
+            }
+          ]
+        },
+        {
+          "widget_name": "req insert",
+          "description": "total insert request for 1 minutes",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "req.insert",
+              "metric_path": "metrics/req/insert",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "req insert",
+              "value": "${req.insert}"
+            }
+          ]
+        },
+        {
           "widget_name": "taosd memory",
-          "description": "taosd max memory last 10 minutes",
+          "description": "taosd max memory last 1 minutes",
           "widget_type": "NUMBER",
           "is_visible": true,
           "metrics": [
@@ -27,7 +67,7 @@
         },
         {
           "widget_name": "system memory",
-          "description": "max System Memory last 10 minutes",
+          "description": "max System Memory last 1 minutes",
           "widget_type": "NUMBER",
           "is_visible": true,
           "metrics": [
@@ -42,6 +82,66 @@
             {
               "name": "system memory",
               "value": "${system.memory}"
+            }
+          ]
+        },
+        {
+          "widget_name": "cpu system",
+          "description": "avg cpu system last 1 minutes",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "cpu.system",
+              "metric_path": "metrics/cpu/system",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "cpu system",
+              "value": "${cpu.system}"
+            }
+          ]
+        },
+        {
+          "widget_name": "cpu taosd",
+          "description": "avg cpu taosd last 1 minutes",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "cpu.taosd",
+              "metric_path": "metrics/cpu/taosd",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "cpu taosd",
+              "value": "${cpu.taosd}"
+            }
+          ]
+        },
+        {
+          "widget_name": "disk used",
+          "description": "avg disk used last 1 minutes",
+          "widget_type": "NUMBER",
+          "is_visible": true,
+          "metrics": [
+            {
+              "name": "disk.used",
+              "metric_path": "metrics/disk/used",
+              "service_name": "TDENGINE",
+              "component_name": "TDENGINE_SERVICE"
+            }
+          ],
+          "values": [
+            {
+              "name": "disk used",
+              "value": "${disk.used}"
             }
           ]
         }

@@ -81,25 +81,29 @@ def check_process(pid_file):
 
 #  获取TDengine的统计数据
 def get_metrics_data():
-    # 查询次数，列表
-    req_select_sql = "select sum(req_select) from log.dn where ts >= now-10m and ts < now interval(1m)"
-    # 写入次数，列表
-    req_insert_sql = "select sum(req_insert) from log.dn where ts >= now-10m and ts < now interval(1m)"
-    # taosd服务内存，数字
-    taosd_memory_sql = "select max(mem_taosd) from log.dn where ts >= now -10m and ts < now"
-    # 系统内存，数字
-    system_memory_sql = "select max(mem_system) from log.dn where ts >= now -10m and ts < now"
-    # 系统CPU，列表
-    cpu_system_sql = "select avg(cpu_system) from log.dn where ts >= now-10m and ts < now  interval(1s)"
-    # taosd占用CPU，列表
-    cpu_taosd_sql = "select avg(cpu_taosd) from log.dn where ts >= now-10m and ts < now  interval(1s)"
-    # 硬盘使用，列表
-    disk_used_sql = "select avg(disk_used) disk_used from log.dn where ts >= now-10m and ts < now interval(1s)"
+    # 查询次数
+    req_select_sql = "select sum(req_select) from log.dn where ts >= now-1m and ts < now"
+    # 写入次数
+    req_insert_sql = "select sum(req_insert) from log.dn where ts >= now-1m and ts < now"
+    # taosd服务内存
+    taosd_memory_sql = "select max(mem_taosd) from log.dn where ts >= now -1m and ts < now"
+    # 系统内存
+    system_memory_sql = "select max(mem_system) from log.dn where ts >= now -1m and ts < now"
+    # 系统CPU
+    cpu_system_sql = "select avg(cpu_system) from log.dn where ts >= now-1m and ts < now"
+    # taosd占用CPU
+    cpu_taosd_sql = "select avg(cpu_taosd) from log.dn where ts >= now-1m and ts < now"
+    # 硬盘使用
+    disk_used_sql = "select avg(disk_used) disk_used from log.dn where ts >= now-1m and ts < now"
     try:
         # 查询次数，列表
-        # response_req_select = json.loads(requests.post(restful, data=req_select_sql, headers=header).content)
+        response_req_select = json.loads(requests.post(restful, data=req_select_sql, headers=header).content)
+        req_select = response_req_select['data'][0][0]
+        send_metric_to_collector("req.select", req_select)
         # 写入次数，列表
-        # response_req_insert = json.loads(requests.post(restful, data=req_insert_sql, headers=header).content)
+        response_req_insert = json.loads(requests.post(restful, data=req_insert_sql, headers=header).content)
+        req_insert = response_req_insert['data'][0][0]
+        send_metric_to_collector("req.insert", req_insert)
         # taosd服务内存，数字
         response_taosd_memory = json.loads(requests.post(restful, data=taosd_memory_sql, headers=header).content)
         taosd_memory = response_taosd_memory['data'][0][0]
@@ -109,11 +113,17 @@ def get_metrics_data():
         system_memory = response_system_memory['data'][0][0]
         send_metric_to_collector("system.memory", system_memory)
         # 系统CPU，列表
-        # response_cpu_system = json.loads(requests.post(restful, data=cpu_system_sql, headers=header).content)
+        response_cpu_system = json.loads(requests.post(restful, data=cpu_system_sql, headers=header).content)
+        cpu_system = response_cpu_system['data'][0][0]
+        send_metric_to_collector("cpu.system", cpu_system)
         # taosd占用CPU，列表
-        # response_cpu_taosd = json.loads(requests.post(restful, data=cpu_taosd_sql, headers=header).content)
+        response_cpu_taosd = json.loads(requests.post(restful, data=cpu_taosd_sql, headers=header).content)
+        cpu_taosd = response_cpu_taosd['data'][0][0]
+        send_metric_to_collector("cpu.taosd", cpu_taosd)
         # 硬盘使用，列表
-        # response_disk_used = json.loads(requests.post(restful, data=disk_used_sql, headers=header).content)
+        response_disk_used = json.loads(requests.post(restful, data=disk_used_sql, headers=header).content)
+        disk_used = response_disk_used['data'][0][0]
+        send_metric_to_collector("disk.used", disk_used)
     except Exception as e:
         logging.error(e)
 
@@ -158,7 +168,7 @@ def check_and_send():
         except Exception:
             logging.error("metrics数据发送失败")
             pass
-        time.sleep(10)
+        time.sleep(60)
 
 
 if __name__ == "__main__":

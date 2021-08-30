@@ -5,6 +5,16 @@
         "type": "ganglia",
         "metrics": {
           "default": {
+            "metrics/req/select": {
+              "metric": "req.select",
+              "pointInTime": true,
+              "temporal": true
+            },
+            "metrics/req/insert": {
+              "metric": "req.insert",
+              "pointInTime": true,
+              "temporal": true
+            },
             "metrics/taosd/memory": {
               "metric": "taosd.memory",
               "pointInTime": true,
@@ -12,6 +22,21 @@
             },
             "metrics/system/memory": {
               "metric": "system.memory",
+              "pointInTime": true,
+              "temporal": true
+            },
+            "metrics/cpu/system": {
+              "metric": "cpu.system",
+              "pointInTime": true,
+              "temporal": true
+            },
+            "metrics/cpu/taosd": {
+              "metric": "cpu.taosd",
+              "pointInTime": true,
+              "temporal": true
+            },
+            "metrics/disk/used": {
+              "metric": "disk.used",
               "pointInTime": true,
               "temporal": true
             }
