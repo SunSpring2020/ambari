@@ -2,6 +2,9 @@
 from resource_management import *
 
 config = Script.get_config()
+stack_root = Script.get_stack_root()
+
+ambari_version = default("/repositoryFile/repoVersion", "3.1.5.0-152")
 
 # 获取tdengine-env.xml中的td_user用户变量
 td_user = config['configurations']['tdengine-env']['td_user']
@@ -10,7 +13,7 @@ td_user = config['configurations']['tdengine-env']['td_user']
 td_group = config['configurations']['tdengine-env']['td_group']
 
 # 获取tdengine-env.xml的TDengine的安装文件夹
-tdengine_dir = config['configurations']['tdengine-env']['tdengine_dir']
+tdengine_dir = format("{stack_root}/{ambari_version}/taos")
 
 # 获取tdengine-env.xml的TDengine的配置文件路径
 tdengine_config_dir = config['configurations']['tdengine-env']['tdengine_config_dir']
@@ -83,5 +86,8 @@ metrics_collector_host = default("/clusterHostInfo/metrics_collector_hosts", ['l
 metrics_collector_port = config['configurations']['ams-site']['timeline.metrics.service.webapp.address'].split(":")[1]
 
 if config.get('repositoryFile'):
-    baseUrl = config['repositoryFile']['repositories'][0]['baseUrl']
-    tdengine_download = format("{baseUrl}/tdengine/TDengine-server-2.0.20.10-Linux-x64.tar.gz")
+    urls = config['repositoryFile']['repositories']
+    for url in urls:
+        if (url['repoName'] == "HDP") | (url['repoName'] is "HDP"):
+            baseUrl = url['baseUrl']
+    tdengine_download = format("{baseUrl}/tdengine/TDengine-server-2.2.0.2-Linux-x64.tar.gz")

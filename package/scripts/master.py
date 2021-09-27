@@ -44,6 +44,8 @@ class Master(Script):
         # 创建缓存目录
         Execute(format("mkdir -p {tempDir}"))
 
+        Execute(format("mkdir -p {dataDir}"))
+
         # 安装包文件解压并复制到安装文件目录
         Execute(format('tar -zxvf tdengine.tar.gz -C /opt/tdengine'))
 
@@ -85,7 +87,7 @@ class Master(Script):
             for x in params.tdHosts:
                 temp = str(x).encode('utf8').strip()
                 if (firstEqTmp != temp) & (firstEqTmp is not temp):
-                    Execute("taos -s \"create dnode \"" + temp + "\"\"")
+                    Execute("taos -s \"create dnode \"\\\'" + temp + "\\\'\"\"")
             # 创建metrics查询用户
             Execute(format("taos -s \"CREATE USER {ambari_metrics_user} PASS \'{ambari_metrics_password}\'\""))
             # 给metrics查询用户赋权，只给予读权限

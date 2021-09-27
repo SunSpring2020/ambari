@@ -39,20 +39,6 @@
         <property-type>GROUP</property-type>
     </property>
 
-    <!-- TDengine安装目录 -->
-    <property>
-        <name>tdengine_dir</name>
-        <display-name>TDengine install directory</display-name>
-        <value>/usr/local/taos</value>
-        <description>TDengine安装目录</description>
-        <final>true</final>
-        <value-attributes>
-            <type>directories</type>
-            <overridable>false</overridable>
-            <editable-only-at-install>true</editable-only-at-install>
-        </value-attributes>
-    </property>
-
     <!-- TDengine配置目录 -->
     <property>
         <name>tdengine_config_dir</name>
